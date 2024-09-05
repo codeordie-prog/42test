@@ -362,10 +362,10 @@ try:
                 ]
             )
 
-            chat_container = st.container()
-            input_container = st.container()
+            chat_place = st.empty()
+            input_place = st.empty()
 
-            with chat_container:
+            with chat_place.container():
 
                 # Initialize chat history if not already in session state
                 if "messages" not in st.session_state:
@@ -389,7 +389,7 @@ try:
             llm_model = st.sidebar.selectbox("Choose LLM model",
                                     ("gpt-3.5-turbo","gpt-4o-mini","gpt-4o"),key="llm_model_chat")
             
-            with input_container:
+            with input_place.container():
                 try:
                     
                     # Handle user input
