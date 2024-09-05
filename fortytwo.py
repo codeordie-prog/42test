@@ -69,7 +69,7 @@ try:
             st.error(f"Error loading image: {e}")
             return None
 
-    imag_path = "streamlitapp/logo/stimage.jfif"
+    imag_path = "logo/stimage.jfif"
     image_bytes = load_image(imag_path)
 
     # Create two columns
@@ -87,7 +87,7 @@ try:
 
 
     #-----------------------------------------------------------sidebar about section-------------------------------------------------------------#
-    st.sidebar.image("streamlitapp/logo/stimage.jfif",width=250)
+    st.sidebar.image("logo/stimage.jfif",width=250)
     #st.sidebar.title("chatwith42")
     st.sidebar.subheader("About")
     st.sidebar.info("""
