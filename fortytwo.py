@@ -804,6 +804,9 @@ try:
                 if sidebar_option == "Web":
                     query_web()
 
+            with tab4:
+                query_documents()
+
         except Exception as e:
             st.write(f"An error occurred: {e}")
 
