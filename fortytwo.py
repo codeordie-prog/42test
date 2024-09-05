@@ -724,8 +724,8 @@ try:
                 qa = create_retrieval_chain(retriever_chain, document_chain)
 
                 return qa
-        except Exception:
-             st.write("an error occured inside the github repo function, its related to parsing of languages that require Tree sitter.")
+        except Exception as e:
+             st.write("an error occured inside the github repo function, its related to parsing of languages that require Tree sitter.",e)
 
 
     #-----------------------------------------------------------audio---------------------------------------------------------------------------
@@ -794,8 +794,8 @@ try:
                                 
 
                 
-                    except Exception:
-                        st.write("an error occured in Github sidebar option")
+                    except Exception as e:
+                        st.write("an error occured in Github sidebar option",e)
 
                 if st.sidebar.button("Download chat"):
                     all_messages = "\n".join([f"{msg['role']}: {msg['content']}" for msg in st.session_state["messages"]])
@@ -804,8 +804,8 @@ try:
             
         except TypeError:
                 st.write("encountered a None type inside main call, check url submitted it might be returning a none type object")
-        except Exception:
-                st.write("An error was encountered at main call")
+        except Exception as e:
+                st.write("An error was encountered at main call",e)
     
 
         
