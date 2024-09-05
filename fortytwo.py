@@ -552,6 +552,9 @@ try:
             if not uploaded_files:
                 st.info("Please upload documents or add url to continue.")
                 st.stop()
+
+            response_placeholder = st.empty()
+            input_placeholder = st.empty()
                  
             retriever = configure_retriever(uploaded_files)   
             
@@ -582,19 +585,24 @@ try:
                     msgs.clear()
                     msgs.add_ai_message("Hey carbon entity, Want to query your documents? ask me!")
 
-            avatars = {"human": "user", "ai": "assistant"}
-            for msg in msgs.messages:
-                st.chat_message(avatars[msg.type]).write(msg.content)
-                
-            st.markdown("Document query section. Utilize RAG you curious being.")
-            if user_query := st.chat_input(placeholder="Ask me about  your documents!",key="query"):
-                st.chat_message("user").write(user_query)
+            with response_placeholder.container():
+                avatars = {"human": "user", "ai": "assistant"}
+                for msg in msgs.messages:
+                    st.chat_message(avatars[msg.type]).write(msg.content)
+                    
+                st.markdown("Document query section. Utilize RAG you curious being.")
 
-                with st.chat_message("ai"):
-                        retrieval_handler = PrintRetrievalHandler(st.container())
-                        stream_handler = StreamHandler(st.empty())
+                user_query = st.chat_input(placeholder="Ask me about  your documents!",key="query")
 
-                        qa_chain.run(user_query, callbacks=[retrieval_handler, stream_handler])
+            with input_placeholder.container():
+                if user_query !=None:
+                    st.chat_message("user").write(user_query)
+
+                    with st.chat_message("ai"):
+                            retrieval_handler = PrintRetrievalHandler(st.container())
+                            stream_handler = StreamHandler(st.empty())
+
+                            qa_chain.run(user_query, callbacks=[retrieval_handler, stream_handler])
 
     def query_web():
 
