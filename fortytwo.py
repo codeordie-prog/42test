@@ -390,10 +390,12 @@ try:
                                     ("gpt-3.5-turbo","gpt-4o-mini","gpt-4o"),key="llm_model_chat")
             
             with input_place.container():
+                # Handle user input
+                user_input = st.chat_input(key="chat")
+                     
                 try:
                     
-                    # Handle user input
-                    if user_input := st.chat_input(key="chat"):
+                
                         if not openai_api_key:
                             st.info("Please add your OpenAI API key to continue.")
                             st.stop()
