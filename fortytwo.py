@@ -742,17 +742,15 @@ try:
     def main():
         try:
             # Define tabs
-            tab1, tab2, tab3 = st.tabs(["Chat and Query", "Github", "Web"])
+            tab1, tab2, tab3, tab4= st.tabs(["Chat","query docs","Github", "Web"])
 
             # Content for "Chat and Query" tab
             with tab1:
                 if sidebar_option == "chat and query":
                     if uploaded_files and not url and not web_document_name:
+                    
                         with st.container():
                             query_documents()
-
-                        with st.container():
-                            chat_with_42()
                     
                     elif not uploaded_files and not url and not web_document_name:
                         with st.container():
