@@ -396,6 +396,7 @@ try:
                      
                 try:
                     
+                    if user_input!= None:
                 
                         if not openai_api_key:
                             st.info("Please add your OpenAI API key to continue.")
