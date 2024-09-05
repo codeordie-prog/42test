@@ -740,34 +740,36 @@ try:
     #--------------------------------------------------------------main function------------------------------------------------------------------#
     st.cache_resource(ttl="2h")
     def main():
-
-        col1,col2 = st.columns([1,1])
-
         try:
+            # Define tabs
+            tab1, tab2, tab3 = st.tabs(["Chat and Query", "Github", "Web"])
 
+            # Content for "Chat and Query" tab
+            with tab1:
                 if sidebar_option == "chat and query":
-                    
                     if uploaded_files and not url and not web_document_name:
-
-                        with col2:
+                        with st.container():
                             query_documents()
 
-                        with col1:
-                             chat_with_42()
-                        
-
+                        with st.container():
+                            chat_with_42()
+                    
                     elif not uploaded_files and not url and not web_document_name:
-
-                        with col1:
+                        with st.container():
                             chat_with_42()
 
-                        with col2:
-                             query_documents()
+                        with st.container():
+                            query_documents()
                     else:
                         query_web()
-
-                elif sidebar_option == "Github":
-                    try:
+                        
+            # Content for "Github" tab
+            with tab2:
+                if sidebar_option == "Github":
+                    with st.container():
+                        chat_with_42()
+                    
+                    with st.container():
                         if repo_url:
                             if "messages" not in st.session_state:
                                 st.session_state["messages"] = [{"role":"assistant","content":"how can I help with the code base?"}]
@@ -798,24 +800,16 @@ try:
                                 response_placeholder.write(ass_msg)
 
                                 
+                        
+            # Content for "Web" tab
+            with tab3:
+                if sidebar_option == "Web":
+                    query_web()
 
-                
-                    except Exception as e:
-                        st.write("an error occured in Github sidebar option",e)
-
-                if st.sidebar.button("Download chat"):
-                    all_messages = "\n".join([f"{msg['role']}: {msg['content']}" for msg in st.session_state["messages"]])
-                    create_and_download(all_messages)
-
-            
-        except TypeError:
-                st.write("encountered a None type inside main call, check url submitted it might be returning a none type object")
         except Exception as e:
-                st.write("An error was encountered at main call",e)
-    
+            st.write(f"An error occurred: {e}")
 
-        
-    #call main
+    # Call main function
     if __name__ == "__main__":
         main()
 
