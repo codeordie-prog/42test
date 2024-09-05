@@ -746,27 +746,11 @@ try:
 
             # Content for "Chat and Query" tab
             with tab1:
-                if sidebar_option == "chat and query":
-                    if uploaded_files and not url and not web_document_name:
-                    
-                        with st.container():
-                            query_documents()
-                    
-                    elif not uploaded_files and not url and not web_document_name:
-                        with st.container():
-                            chat_with_42()
-
-                        with st.container():
-                            query_documents()
-                    else:
-                        query_web()
+                chat_with_42()
                         
             # Content for "Github" tab
             with tab2:
-                if sidebar_option == "Github":
-                    with st.container():
-                        chat_with_42()
-                    
+                  
                     with st.container():
                         if repo_url:
                             if "messages" not in st.session_state:
@@ -801,11 +785,9 @@ try:
                         
             # Content for "Web" tab
             with tab3:
-                if sidebar_option == "Web":
-                    query_web()
-
-            with tab4:
                 query_documents()
+            with tab4:
+                query_web()
 
         except Exception as e:
             st.write(f"An error occurred: {e}")
