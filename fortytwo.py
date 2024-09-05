@@ -82,7 +82,8 @@ try:
         else:
          st.error("Failed to load image.")
 
-   
+    with col2:
+         st.write("Artificial Intelligence will grant us the ultimate threshold up the Kardashev's scale")
 
 
 
