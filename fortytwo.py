@@ -799,7 +799,9 @@ try:
             with tab3:
                 query_documents()
             with tab4:
-                query_web()
+                if not uploaded_files:
+                    query_web()
+                    
 
         except Exception as e:
             st.write(f"An error occurred: {e}")
