@@ -393,7 +393,7 @@ try:
                 try:
                     
                     # Handle user input
-                    if user_input := st.chat_input():
+                    if user_input := st.chat_input(key="chat"):
                         if not openai_api_key:
                             st.info("Please add your OpenAI API key to continue.")
                             st.stop()
@@ -583,7 +583,7 @@ try:
                 st.chat_message(avatars[msg.type]).write(msg.content)
                 
             st.markdown("Document query section. Utilize RAG you curious being.")
-            if user_query := st.chat_input(placeholder="Ask me about  your documents!"):
+            if user_query := st.chat_input(placeholder="Ask me about  your documents!",key="query"):
                 st.chat_message("user").write(user_query)
 
                 with st.chat_message("ai"):
@@ -632,7 +632,7 @@ try:
                 st.chat_message(avatars[msg.type]).write(msg.content)
                 
             st.markdown("Document query section. Utilize RAG you curious being.")
-            if user_query := st.chat_input(placeholder="Ask me about  your documents!"):
+            if user_query := st.chat_input(placeholder="Ask me about  your documents!",key="web"):
                 st.chat_message("user").write(user_query)
 
                 with st.chat_message("ai"):
