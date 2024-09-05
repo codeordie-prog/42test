@@ -91,16 +91,7 @@ try:
     #st.sidebar.title("chatwith42")
     st.sidebar.subheader("About")
     st.sidebar.info("""
-        Hi! am 42, a powerful knowledge discovery engine named after the ultimate answer in the Hitchhikers Guide to the Galaxy.
-        My capabilities include:
-        - Image Generation
-        - Image Description
-        - Retrieval Augmented Generation
-        - Github repositories querying
-        - Web scrapping
-        
-        I can query documents in formats: .pdf, .csv, .txt, .jpeg, .png, .jpg.
-        or a GitHub repository using the GitHub toggle.
+        this is a test app. the main app is at https://chatwith42.streamlit.app
         """)
 
 
