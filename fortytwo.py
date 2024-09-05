@@ -743,8 +743,11 @@ try:
                     
                     if uploaded_files and not url and not web_document_name:
 
-            
-                        query_documents()
+                        with col2:
+                            query_documents()
+
+                        with col1:
+                             chat_with_42()
                         
 
                     elif not uploaded_files and not url and not web_document_name:
