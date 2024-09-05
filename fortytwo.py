@@ -594,15 +594,15 @@ try:
 
                 user_query = st.chat_input(placeholder="Ask me about  your documents!",key="query")
 
-            with input_placeholder.container():
-                if user_query !=None:
-                    st.chat_message("user").write(user_query)
+            
+            if user_query !=None:
+                st.chat_message("user").write(user_query)
 
-                    with st.chat_message("ai"):
-                            retrieval_handler = PrintRetrievalHandler(st.container())
-                            stream_handler = StreamHandler(st.empty())
+                with st.chat_message("ai"):
+                        retrieval_handler = PrintRetrievalHandler(st.container())
+                        stream_handler = StreamHandler(st.empty())
 
-                            qa_chain.run(user_query, callbacks=[retrieval_handler, stream_handler])
+                        qa_chain.run(user_query, callbacks=[retrieval_handler, stream_handler])
 
     def query_web():
 
