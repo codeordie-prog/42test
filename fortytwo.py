@@ -592,17 +592,17 @@ try:
                     
                 st.markdown("Document query section. Utilize RAG you curious being.")
 
-                user_query = st.chat_input(placeholder="Ask me about  your documents!",key="query")
+            user_query = st.chat_input(placeholder="Ask me about  your documents!",key="query")
 
-            
-            if user_query !=None:
-                st.chat_message("user").write(user_query)
+            with input_placeholder.container():
+                if user_query !=None:
+                    st.chat_message("user").write(user_query)
 
-                with st.chat_message("ai"):
-                        retrieval_handler = PrintRetrievalHandler(st.container())
-                        stream_handler = StreamHandler(st.empty())
+                    with st.chat_message("ai"):
+                            retrieval_handler = PrintRetrievalHandler(st.container())
+                            stream_handler = StreamHandler(st.empty())
 
-                        qa_chain.run(user_query, callbacks=[retrieval_handler, stream_handler])
+                            qa_chain.run(user_query, callbacks=[retrieval_handler, stream_handler])
 
     def query_web():
 
@@ -754,7 +754,7 @@ try:
     def main():
         try:
             # Define tabs
-            tab1, tab2, tab3, tab4= st.tabs(["Chat","query docs","Github", "Web"])
+            tab1, tab2, tab3, tab4= st.tabs(["Chat","Github","query docs", "Web"])
 
             # Content for "Chat and Query" tab
             with tab1:
