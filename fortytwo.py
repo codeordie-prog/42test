@@ -122,7 +122,7 @@ try:
 
     with tab1:
          
-         llm_model_chat= st.slider(label="choose model",
+         llm_model_chat= st.selectbox(label="choose model",
                                      options=["gpt-4o","gpt-4o-mini","gpt-3.5-turbo"],key="chat_slider")
 
     with tab2:
@@ -137,7 +137,7 @@ try:
         uploaded_files = st.file_uploader(
             label="Upload files", type=["pdf", "txt", "csv","jpg","png","jpeg"], accept_multiple_files=True
         )
-        llm_model_docs= st.slider(label="choose model",
+        llm_model_docs= st.selectbox(label="choose model",
                                      options=["gpt-4o","gpt-4o-mini","gpt-3.5-turbo"],key="docs_slider")
 
 
@@ -154,7 +154,7 @@ try:
     
         url = st.text_input("enter url")
         web_document_name = st.text_input("Enter name for the web document")
-        llm_model_web= st.slider(label="choose model",
+        llm_model_web= st.selectbox(label="choose model",
                                      options=["gpt-4o","gpt-4o-mini","gpt-3.5-turbo"],key="web_slider")
 
 
