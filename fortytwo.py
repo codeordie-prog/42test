@@ -573,10 +573,11 @@ try:
                         st.info("Please upload documents or add url to continue.")
                         st.stop()
 
-                    response_placeholder = st.empty()
-                    input_placeholder = st.empty()
+
                         
-                    retriever = configure_retriever(uploaded_files)   
+                    retriever = configure_retriever(uploaded_files)  
+                    response_placeholder = st.empty()
+                    input_placeholder = st.empty() 
                     
                     # Setup memory for contextual conversation for the documents part
                     msgs = StreamlitChatMessageHistory()
