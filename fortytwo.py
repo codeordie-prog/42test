@@ -580,7 +580,7 @@ try:
                     input_placeholder = st.empty() 
                     
                     # Setup memory for contextual conversation for the documents part
-                    msgs = StreamlitChatMessageHistory()
+                    msgs = StreamlitChatMessageHistory(key="documents_messages")
                     memory = ConversationBufferMemory(memory_key="chat_history", chat_memory=msgs, return_messages=True)
 
                         
@@ -640,7 +640,7 @@ try:
                     response_placeholder = st.empty()
 
                     # Setup memory for contextual conversation for the documents part
-                    msgs = StreamlitChatMessageHistory()
+                    msgs = StreamlitChatMessageHistory(key="web_messages")
                     memory = ConversationBufferMemory(memory_key="chat_history", chat_memory=msgs, return_messages=True)
 
                         
