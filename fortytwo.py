@@ -134,7 +134,7 @@ try:
     # File uploader in the sidebar
 
     with tab3:
-        uploaded_files = st.sidebar.file_uploader(
+        uploaded_files = st.file_uploader(
             label="Upload files", type=["pdf", "txt", "csv","jpg","png","jpeg"], accept_multiple_files=True
         )
         llm_model_docs= st.select_slider(label="choose model",
