@@ -783,11 +783,11 @@ try:
 
             chat,github,docs,web = st.tabs(["chat","github","docs","web"])
             # Content for "Chat and Query" tab
-            with chat:
+            with tab1:
                 chat_with_42()
                         
             # Content for "Github" tab
-            with github:
+            with tab2:
                   
                     with st.container():
                         if repo_url:
@@ -822,9 +822,9 @@ try:
                                 
                         
             # Content for "Web" tab
-            with docs:
+            with tab3:
                 query_documents()
-            with web:
+            with tab4:
                 
                 query_web()
                     
