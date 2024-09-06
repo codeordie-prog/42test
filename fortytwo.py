@@ -781,7 +781,7 @@ try:
     def main():
         try:
 
-            chat,github,docs,web = st.tabs(["chat","github","docs","web"])
+            
             # Content for "Chat and Query" tab
             with tab1:
                 chat_with_42()
