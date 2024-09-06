@@ -636,6 +636,8 @@ try:
                         st.stop()
                         
                     retriever = web_page_saver_to_txt(url)
+                    input_placeholder = st.empty()
+                    response_placeholder = st.empty()
 
                     # Setup memory for contextual conversation for the documents part
                     msgs = StreamlitChatMessageHistory()
@@ -663,18 +665,23 @@ try:
                             msgs.add_ai_message("Hey carbon entity, Want to query your documents? ask me!")
 
                     avatars = {"human": "user", "ai": "assistant"}
-                    for msg in msgs.messages:
-                        st.chat_message(avatars[msg.type]).write(msg.content)
+
+                    with response_placeholder.container():
+                        for msg in msgs.messages:
+                            st.chat_message(avatars[msg.type]).write(msg.content)
+
+
+                    user_query = st.chat_input(key="web")
                         
-                    st.markdown("Document query section. Utilize RAG you curious being.")
-                    if user_query := st.chat_input(placeholder="Ask me about  your documents!",key="web"):
-                        st.chat_message("user").write(user_query)
+                    with input_placeholder.container():
+                        if user_query!=None:
+                            st.chat_message("user").write(user_query)
 
-                        with st.chat_message("ai"):
-                                retrieval_handler = PrintRetrievalHandler(st.container())
-                                stream_handler = StreamHandler(st.empty())
+                            with st.chat_message("ai"):
+                                    retrieval_handler = PrintRetrievalHandler(st.container())
+                                    stream_handler = StreamHandler(st.empty())
 
-                                qa_chain.run(user_query, callbacks=[retrieval_handler, stream_handler])
+                                    qa_chain.run(user_query, callbacks=[retrieval_handler, stream_handler])
 
             except Exception as e:
                 st.write("an error occured inside web query",e)
