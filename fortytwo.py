@@ -781,12 +781,13 @@ try:
     def main():
         try:
 
+            chat,github,docs,web = st.tabs(["chat","github","docs","web"])
             # Content for "Chat and Query" tab
-            with tab1:
+            with chat:
                 chat_with_42()
                         
             # Content for "Github" tab
-            with tab2:
+            with github:
                   
                     with st.container():
                         if repo_url:
@@ -821,11 +822,11 @@ try:
                                 
                         
             # Content for "Web" tab
-            with tab3:
+            with docs:
                 query_documents()
-            with tab4:
-                if not uploaded_files:
-                    query_web()
+            with web:
+                
+                query_web()
                     
 
         except Exception as e:
