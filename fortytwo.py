@@ -837,7 +837,7 @@ try:
         main()
 
 
-except Exception :
-    st.write("an error occured check the key")
+except Exception as e:
+    st.write("an error occured check the key",e)
 
  
