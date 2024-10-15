@@ -470,8 +470,8 @@ try:
                                  
                                 nim_response = ""
                                 response_display = st.empty()
-                                resp = llm_chain.stream(input=user_input)
-                                st.write(resp)
+                                for resp in llm_chain.stream(input=user_input):
+                                    st.write(resp["chat_history"][-1])
                                       #response_display.text(nim_response)
                                       
 
