@@ -467,16 +467,18 @@ try:
                     
                             # Get response from LLM chain
 
+    
+
+                            response = llm_chain.stream({"question": user_input}, callbacks = [stream_handler])
+
                             if api_provider =="NVIDIA":
                                 nim_resp =""
                                 resp_disp = st.empty()
 
-                                for chunk in llm_chain.stream(input=user_input):
-                                     nim_resp+=chunk["text"]
+                                for chunk in response:
+                                     nim_resp+=chunk
                                      resp_disp.text(nim_resp)
                             
-
-                            response = llm_chain.run({"question": user_input}, callbacks = [stream_handler])
 
                             
                                       
