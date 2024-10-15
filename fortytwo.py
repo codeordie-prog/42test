@@ -506,14 +506,14 @@ try:
                             st.session_state["messages"].append({"role": "assistant", "content": assistant_msg})
 
                             
-                            responses_path=openai_audio.text_to_speech(response,openai_api_key="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")
-                            st.audio(responses_path,format="audio")
+                            #responses_path=openai_audio.text_to_speech(response,openai_api_key)
+                            #st.audio(responses_path,format="audio")
 
                             #download the audio
                                 
-                            with open(responses_path, "rb") as audio_file:
-                                data = audio_file.read()
-                                st.download_button(label="download",data=data,file_name="audio.mp3",mime="audio/mp3")
+                            ##with open(responses_path, "rb") as audio_file:
+                              #  data = audio_file.read()
+                               # st.download_button(label="download",data=data,file_name="audio.mp3",mime="audio/mp3")
                                 
                            
                             
