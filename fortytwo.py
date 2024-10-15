@@ -469,7 +469,11 @@ try:
 
     
 
-                            response = llm_chain.stream({"question": user_input}, callbacks = [stream_handler])
+                            response = llm_chain.run({"question": user_input}, callbacks = [stream_handler])
+
+                            resp2 = llm_chain.stream({"question": user_input}, callbacks = [stream_handler])
+                            
+                            st.write(resp2)
 
                             
                             
