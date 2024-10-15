@@ -509,7 +509,7 @@ try:
                                 # Append assistant message to session state and display it
                             st.session_state["messages"].append({"role": "assistant", "content": assistant_msg})
 
-                            if openai_api_key:
+                            if openai_api_key and st.button(label="generate audio"):
                                     responses_path=openai_audio.text_to_speech(response,api_key=openai_api_key)
                                     st.audio(responses_path,format="audio")
 
