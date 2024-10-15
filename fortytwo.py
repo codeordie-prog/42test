@@ -466,7 +466,12 @@ try:
                             stream_handler = StreamHandler(st.empty())
                     
                             # Get response from LLM chain
-                            response = llm_chain.run({"question": user_input}, callbacks = [stream_handler])
+
+                            if api_provider=="openAI":
+                                response = llm_chain.run({"question": user_input}, callbacks = [stream_handler])
+
+                            elif api_provider=="NVIDIA":
+                                response = llm_chain.stream(input="question")
 
 
                             #image generation function calling
