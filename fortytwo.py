@@ -470,12 +470,12 @@ try:
 
                             if api_provider == "NVIDIA":
                                  response = llm_chain.stream({"question":user_input})
-                                 response_string = response["text"]
+                                 #response_string = response["text"]
 
-                                 for chunk in response_string:
-                                      st.chat_message.write(chunk)
+                                 for chunk in response:
+                                      st.chat_message.write(chunk["text"])
 
-                                 st.session_state["messages"].append({"role": "assistant", "content": response_string})
+                                 st.session_state["messages"].append({"role": "assistant", "content": response})
 
                                  
                             
