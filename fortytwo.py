@@ -120,11 +120,11 @@ try:
         if not openai_api_key:
            st.info("Please add your OpenAI key to continue.")
            st.stop()
-    else:
+    elif api_provider =="NVIDIA":
         nvidia_api_key = st.sidebar.text_input("Nvidia API Key",type="password")
         openai_api_key = st.sidebar.text_input("OpenAI API Key", type="password")
     
-        if not nvidia_api_key:
+        if not nvidia_api_key and openai_api_key:
             st.info("Please add your NVIDIA API key to continue.")
             st.stop()
 
