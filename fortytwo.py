@@ -473,8 +473,9 @@ try:
 
                                 for chunk in llm_chain.stream(input=user_input):
                                      nim_resp+=chunk["text"]
-                                     resp_disp.write(nim_resp)
+                                     resp_disp.text(nim_resp)
                             
+
                             response = llm_chain.run({"question": user_input}, callbacks = [stream_handler])
 
                             
