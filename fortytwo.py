@@ -471,8 +471,8 @@ try:
                                 nim_response = ""
                                 response_display = st.empty()
                                 resp = llm_chain.invoke(input=user_input)
-                                last_response_content = resp['chat_history'][-1].split("content='")[1].split("'")[0]
-                                st.write(last_response_content)
+                                #last_response_content = resp['chat_history'][-1].split("content='")[1].split("'")[0]
+                                st.write(resp)
 
                                       #response_display.text(nim_response)
                                       
