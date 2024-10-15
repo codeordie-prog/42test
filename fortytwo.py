@@ -448,14 +448,14 @@ try:
 
                             # Set up memory for conversation
                             memory = ConversationBufferMemory(memory_key="chat_history", chat_memory=chat_history, return_messages=True)
-
+                            str_hand = StreamHandler(st.empty())
                             # Create the LLM chain
                             llm_chain = LLMChain(
                                 llm=llm2,
                                 verbose=False,
                                 memory=memory,
                                 prompt=system_prompt,
-                                callbacks=[stream_handler]
+                                callbacks=[str_hand]
                             )
 
                             
