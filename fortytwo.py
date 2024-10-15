@@ -498,7 +498,9 @@ try:
                                 #image generation function calling
                             if response.startswith("Abracadabra baby."):
                                     with st.spinner(text="Generating image in progress..."):
-                                        image_url = vision.generate_image(description=user_input,openai_api_key=openai_api_key)
+                                        api_key = openai_api_key
+                                        st.write(api_key)
+                                        image_url = vision.generate_image(description=user_input,openai_api_key=api_key)
                                         
                                         
                                         with tempfile.TemporaryDirectory() as temporary_directory:
