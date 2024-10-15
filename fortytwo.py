@@ -471,8 +471,9 @@ try:
                                 nim_response = ""
                                 response_display = st.empty()
                                 for resp in llm_chain.stream(input=user_input):
-                                #last_response_content = resp['chat_history'][-1].split("content='")[1].split("'")[0]
-                                    st.write(resp["text"])
+                                    nim_response+=resp['text']
+                                    response_display.text(nim_response)
+                                    #st.write(resp["text"])
 
                                       #response_display.text(nim_response)
                                       
