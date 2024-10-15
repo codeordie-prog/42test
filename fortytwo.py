@@ -471,7 +471,7 @@ try:
                                 nim_response = ""
                                 response_display = st.empty()
                                 for chunk in llm_chain.stream(input=user_input):
-                                      st.write(chunk["chat_history"])
+                                      st.write(chunk["chat_history"]["AIMessage"])
                                       #response_display.text(nim_response)
                                       
 
