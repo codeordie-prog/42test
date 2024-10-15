@@ -470,7 +470,7 @@ try:
                                  
                                 nim_response = ""
                                 response_display = st.empty()
-                                for chunk in llm2.stream(input=user_input):
+                                for chunk in llm_chain.stream(input=user_input):
                                       nim_response+=chunk.content
                                       response_display.text(nim_response)
                                       
