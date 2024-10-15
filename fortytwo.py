@@ -469,8 +469,10 @@ try:
                             if api_provider=="NVIDIA":
                                  
                                 nim_response = ""
+                                response_display = st.empty()
                                 for chunk in llm2.stream(input=user_input):
                                       nim_response+=chunk.content
+                                      response_display.text(nim_response)
                                       
 
                                 #st.session_state["messages"].append({"role": "assistant", "content": nim_response})
