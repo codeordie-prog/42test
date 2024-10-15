@@ -122,6 +122,7 @@ try:
            st.stop()
     else:
         nvidia_api_key = st.sidebar.text_input("Nvidia API Key",type="password")
+        openai_api_key = st.sidebar.text_input("OpenAI API Key", type="password")
     
         if not nvidia_api_key:
             st.info("Please add your NVIDIA API key to continue.")
@@ -506,21 +507,21 @@ try:
                             st.session_state["messages"].append({"role": "assistant", "content": assistant_msg})
 
                             
-                            #responses_path=openai_audio.text_to_speech(response,openai_api_key)
-                            #st.audio(responses_path,format="audio")
+                            responses_path=openai_audio.text_to_speech(response,openai_api_key)
+                            st.audio(responses_path,format="audio")
 
                             #download the audio
                                 
-                            ##with open(responses_path, "rb") as audio_file:
-                              #  data = audio_file.read()
-                               # st.download_button(label="download",data=data,file_name="audio.mp3",mime="audio/mp3")
+                            with open(responses_path, "rb") as audio_file:
+                                data = audio_file.read()
+                                st.download_button(label="download",data=data,file_name="audio.mp3",mime="audio/mp3")
                                 
                            
                             
                             # Download chat button
-                            #if st.sidebar.button("Download Chat"):
-                                #all_messages = "\n".join([f"{msg['role']}: {msg['content']}" for msg in st.session_state["messages"]])
-                                #create_and_download(text_content=all_messages)
+                            if st.sidebar.button("Download Chat"):
+                                all_messages = "\n".join([f"{msg['role']}: {msg['content']}" for msg in st.session_state["messages"]])
+                                create_and_download(text_content=all_messages)
 
                         
 
