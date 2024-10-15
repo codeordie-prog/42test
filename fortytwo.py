@@ -129,7 +129,7 @@ try:
     with tab1:
          
          llm_model_chat= st.selectbox(label="choose model",
-                                     options=["llama-3.1-405b-instruct","gpt-4o","gpt-4o-mini","gpt-3.5-turbo"],key="chat_slider")
+                                     options=["meta/llama-3.1-405b-instruct","gpt-4o","gpt-4o-mini","gpt-3.5-turbo"],key="chat_slider")
 
     with tab2:
          repo_url=st.text_input(label="Enter repository url")
