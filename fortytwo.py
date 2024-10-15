@@ -470,8 +470,8 @@ try:
                             if api_provider=="openAI":
                                 response = llm_chain.run({"question": user_input}, callbacks = [stream_handler])
 
-                            elif api_provider=="NVIDIA":
-                                response = llm_chain.stream(input=user_input)
+                            
+                            response = llm_chain.stream(input=user_input)
 
 
                             #image generation function calling
