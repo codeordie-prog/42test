@@ -474,7 +474,7 @@ try:
                                  response_display = st.empty()
                                  for chunk in response:
                                       nim_resp+=chunk
-                                      response_display.write_stream(nim_resp)
+                                      response_display.write(nim_resp)
                                       
 
 
