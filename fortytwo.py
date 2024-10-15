@@ -35,6 +35,7 @@ from langchain.chains.retrieval import create_retrieval_chain
 from langchain.chains.combine_documents import create_stuff_documents_chain
 import vision,audio,openai_audio
 from langchain_nvidia_ai_endpoints import ChatNVIDIA
+from langchain_core.output_parsers import StrOutputParser
 
 
 
@@ -449,6 +450,7 @@ try:
                             # Set up memory for conversation
                             memory = ConversationBufferMemory(memory_key="chat_history", chat_memory=chat_history, return_messages=True)
                             
+                    
                             # Create the LLM chain
                             llm_chain = LLMChain(
                                 llm=llm2,
@@ -468,13 +470,18 @@ try:
                     
                             # Get response from LLM chain
 
-                                 
-                            
-                            response = llm_chain.run({"question": user_input}, callbacks = [stream_handler])
 
-                            if api_provider == "NVIDIA":
+                            if api_provider == "openAI":     
+                            
+                                response = llm_chain.run({"question": user_input}, callbacks = [stream_handler])
+
+                            elif api_provider == "NVIDIA":
+                                 nvidia_chain = system_prompt | llm2 | StrOutputParser()
+
+                                 
                                  nim_resp = ""
                                  response_display = st.empty()
+                                 response = nvidia_chain.invoke({"question": user_input})
                                  for chunk in response:
                                       nim_resp+=chunk
                                       response_display.write(nim_resp)
