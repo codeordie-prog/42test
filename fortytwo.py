@@ -468,15 +468,6 @@ try:
                     
                             # Get response from LLM chain
 
-                            if api_provider == "NVIDIA":
-                                 response = llm_chain.stream({"question":user_input})
-                                 #response_string = response["text"]
-
-                                 for chunk in response:
-                                      st.chat_message("assistant").write(chunk["text"])
-
-                                 st.session_state["messages"].append({"role": "assistant", "content": response})
-
                                  
                             
                             response = llm_chain.run({"question": user_input}, callbacks = [stream_handler])
