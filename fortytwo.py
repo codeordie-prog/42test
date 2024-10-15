@@ -473,7 +473,7 @@ try:
                                  #response_string = response["text"]
 
                                  for chunk in response:
-                                      st.chat_message.write(chunk["text"])
+                                      st.chat_message("assistant").write(chunk["text"])
 
                                  st.session_state["messages"].append({"role": "assistant", "content": response})
 
