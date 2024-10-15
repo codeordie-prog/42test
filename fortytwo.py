@@ -436,11 +436,11 @@ try:
                                 llm2 = ChatOpenAI(openai_api_key=openai_api_key, model = llm_model_chat, streaming = True)
 
                             elif api_provider == "NVIDIA":
-                                    if not nvidia_api_key:
+                                if not nvidia_api_key:
                                         st.info("add NVIDIA API")
                                         st.stop()
 
-                                    llm2 = ChatNVIDIA(model="meta/llama-3.1-405b-instruct",api_key = nvidia_api_key)
+                                llm2 = ChatNVIDIA(model="meta/llama-3.1-405b-instruct",api_key = nvidia_api_key, streaming=True)
 
 
                             # Initialize Streamlit chat history
@@ -448,14 +448,14 @@ try:
 
                             # Set up memory for conversation
                             memory = ConversationBufferMemory(memory_key="chat_history", chat_memory=chat_history, return_messages=True)
-                            str_hand = StreamHandler(st.empty())
+                            
                             # Create the LLM chain
                             llm_chain = LLMChain(
                                 llm=llm2,
                                 verbose=False,
                                 memory=memory,
                                 prompt=system_prompt,
-                                callbacks=[str_hand]
+                            
                             )
 
                             
