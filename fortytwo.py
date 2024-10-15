@@ -466,6 +466,13 @@ try:
                             stream_handler = StreamHandler(st.empty())
                     
                             # Get response from LLM chain
+
+                            if api_provider =="NVIDIA":
+                                nim_resp =""
+                                resp_disp = st.empty()
+
+                                for chunk in llm_chain.stream(input=user_input):
+                                     st.write(chunk)
                             
                             response = llm_chain.run({"question": user_input}, callbacks = [stream_handler])
 
