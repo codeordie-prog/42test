@@ -472,16 +472,12 @@ try:
                                 resp_disp = st.empty()
 
                                 for chunk in llm_chain.stream(input=user_input):
-                                     st.write(chunk)
+                                     nim_resp+=chunk["text"]
+                                     resp_disp.write(nim_resp)
                             
                             response = llm_chain.run({"question": user_input}, callbacks = [stream_handler])
 
-                            if api_provider == "NVIDIA":
-                                 nim_resp = ""
-                                 response_display = st.empty()
-                                 for chunk in response:
-                                      nim_resp+=chunk
-                                      response_display.write(nim_resp)
+                            
                                       
 
 
