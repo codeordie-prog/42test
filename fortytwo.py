@@ -115,18 +115,12 @@ try:
     api_provider = st.sidebar.selectbox(label="choose api provider",
                          options=["openAI","NVIDIA"])
     # Input for OpenAI API key in the sidebar
-    if api_provider == "openAI":
-        openai_api_key = st.sidebar.text_input("OpenAI API Key", type="password")
-        if not openai_api_key:
-           st.info("Please add your OpenAI key to continue.")
+    openai_api_key = st.sidebar.text_input("OpenAI API Key", type="password")
+    nvidia_api_key = st.sidebar.text_input("Nvidia API Key",type="password")
+    if not openai_api_key and nvidia_api_key:
+           st.info("Please add your API keys to continue.")
            st.stop()
-    elif api_provider =="NVIDIA":
-        nvidia_api_key = st.sidebar.text_input("Nvidia API Key",type="password")
-        openai_api_key = st.sidebar.text_input("OpenAI API Key", type="password")
-    
-        if not nvidia_api_key and openai_api_key:
-            st.info("Please add your NVIDIA API key to continue.")
-            st.stop()
+
 
 
    #________________________________________radios_______________________________________________________________________
