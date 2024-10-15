@@ -445,7 +445,7 @@ try:
                                         st.info("add NVIDIA API")
                                         st.stop()
 
-                                    llm2 = ChatNVIDIA(model="meta/llama-3.1-405b-instruct")
+                                    llm2 = ChatNVIDIA(model="meta/llama-3.1-405b-instruct",api_key = nvidia_api_key)
 
 
                             # Initialize Streamlit chat history
