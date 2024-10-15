@@ -34,6 +34,7 @@ from langchain.chains.history_aware_retriever import create_history_aware_retrie
 from langchain.chains.retrieval import create_retrieval_chain
 from langchain.chains.combine_documents import create_stuff_documents_chain
 import vision,audio,openai_audio
+from langchain_nvidia_ai_endpoints import ChatNVIDIA
 
 
 
@@ -113,19 +114,22 @@ try:
     
     # Input for OpenAI API key in the sidebar
     openai_api_key = st.sidebar.text_input("OpenAI API Key", type="password")
+    nvidia_api_key = st.sidebar.text_input("Nvidia API Key",type="password")
     
-    if not openai_api_key:
-           st.info("Please add your OpenAI API key to continue.")
+    if not openai_api_key and nvidia_api_key:
+           st.info("Please add your OpenAI and NVIDIA API keys to continue.")
            st.stop()
 
-    huggingface_api_token = st.sidebar.text_input("Huggingface API token",type="password")
+   
+
+    
 
    #________________________________________radios_______________________________________________________________________
 
     with tab1:
          
          llm_model_chat= st.selectbox(label="choose model",
-                                     options=["gpt-4o","gpt-4o-mini","gpt-3.5-turbo"],key="chat_slider")
+                                     options=["llama-3.1-405b-instruct","gpt-4o","gpt-4o-mini","gpt-3.5-turbo"],key="chat_slider")
 
     with tab2:
          repo_url=st.text_input(label="Enter repository url")
@@ -140,7 +144,7 @@ try:
             label="Upload files", type=["pdf", "txt", "csv","jpg","png","jpeg"], accept_multiple_files=True
         )
         llm_model_docs= st.selectbox(label="choose model",
-                                     options=["gpt-4o","gpt-4o-mini","gpt-3.5-turbo"],key="docs_slider")
+                                     options=["llama-3.1-405b-instruct","gpt-4o","gpt-4o-mini","gpt-3.5-turbo"],key="docs_slider")
 
 
     #---------------------------------------------------sidebar for query web-------------------------------------------------------------------#
@@ -157,7 +161,7 @@ try:
         url = st.text_input("enter url")
         web_document_name = st.text_input("Enter name for the web document")
         llm_model_web= st.selectbox(label="choose model",
-                                     options=["gpt-4o","gpt-4o-mini","gpt-3.5-turbo"],key="web_slider")
+                                     options=["llama-3.1-405b-instruct","gpt-4o","gpt-4o-mini","gpt-3.5-turbo"],key="web_slider")
 
 
     # Inject custom CSS for glowing border effect
@@ -421,7 +425,12 @@ try:
                                 st.stop()
 
                             # Initialize OpenAI LLM
-                            llm2 = ChatOpenAI(openai_api_key=openai_api_key, model = llm_model_chat, streaming = True)
+
+                            if llm_model_chat == "llama-3.1-405b-instruct":
+                                llm2 = ChatNVIDIA(model="llama-3.1-405b-instruct")
+                            else:
+
+                                llm2 = ChatOpenAI(openai_api_key=openai_api_key, model = llm_model_chat, streaming = True)
 
                             # Initialize Streamlit chat history
                             chat_history = StreamlitChatMessageHistory(key="chat_history")
@@ -490,17 +499,8 @@ try:
                                 data = audio_file.read()
                                 st.download_button(label="download",data=data,file_name="audio.mp3",mime="audio/mp3")
                                 
-                            #audio if huggingface
-                            if huggingface_api_token:
-                                try:
-                                    audio_path = audio.text_to_speech(response,huggingface_api_token)
-                                    if audio_path:
-                                        st.audio(audio_path,format="wav")
-                                        st.download_button(label="download",data=audio_path,file_name="audio.wav",mime="audio/wav")
-                                        
-                                except Exception as e:
-                                    st.write(f"an error occured while converting to speech: {e}")
-
+                           
+                            
                             # Download chat button
                             #if st.sidebar.button("Download Chat"):
                                 #all_messages = "\n".join([f"{msg['role']}: {msg['content']}" for msg in st.session_state["messages"]])
