@@ -467,16 +467,12 @@ try:
                     
                             # Get response from LLM chain
 
-                            if api_provider=="NVIDIA":
-                                response = llm2.stream(input=user_input)
-
-                            else:
-
-                                response = llm_chain.run({"question": user_input}, callbacks = [stream_handler])
+                        
+                            response = llm_chain.run({"question": user_input}, callbacks = [stream_handler])
 
 
                                 #image generation function calling
-                                if response.startswith("Abracadabra baby."):
+                            if response.startswith("Abracadabra baby."):
                                     with st.spinner(text="Generating image in progress..."):
                                         image_url = vision.generate_image(description=user_input,openai_api_key=openai_api_key)
                                         
@@ -497,16 +493,16 @@ try:
                                                 )
 
 
-                                assistant_msg = response  # Adjusted to fetch text from the response
+                            assistant_msg = response  # Adjusted to fetch text from the response
 
-                                if assistant_msg == "Generated image.":
+                            if assistant_msg == "Generated image.":
                                     st.session_state["messages"].append({"role":"assistant","content":f"Here is your generated image:{image_url}, for the description : {user_input}"})
                                     
 
                                 # Append assistant message to session state and display it
-                                st.session_state["messages"].append({"role": "assistant", "content": assistant_msg})
+                            st.session_state["messages"].append({"role": "assistant", "content": assistant_msg})
 
-                                if openai_api_key:
+                            if openai_api_key:
                                     responses_path=openai_audio.text_to_speech(response,api_key=openai_api_key)
                                     st.audio(responses_path,format="audio")
 
@@ -519,7 +515,7 @@ try:
                             
                                 
                                 # Download chat button
-                                if st.sidebar.button("Download Chat"):
+                            if st.sidebar.button("Download Chat"):
                                     all_messages = "\n".join([f"{msg['role']}: {msg['content']}" for msg in st.session_state["messages"]])
                                     create_and_download(text_content=all_messages)
 
