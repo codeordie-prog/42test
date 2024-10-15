@@ -469,11 +469,11 @@ try:
 
     
 
-                            response = llm_chain.run({"question": user_input}, callbacks = [stream_handler])
+                            response = llm_chain.stream({"question": user_input}, callbacks = [stream_handler])
 
-                            resp2 = llm_chain.stream({"question": user_input}, callbacks = [stream_handler])
+                            #resp2 = llm_chain.stream({"question": user_input}, callbacks = [stream_handler])
                             
-                            st.write(resp2)
+                            #st.write(resp2)
 
                             
                             
@@ -481,7 +481,7 @@ try:
 
 
                                 #image generation function calling
-                            if response.startswith("Abracadabra baby."):
+                            if response["text"].startswith("Abracadabra baby."):
                                     with st.spinner(text="Generating image in progress..."):
                                         image_url = vision.generate_image(description=user_input,openai_api_key=openai_api_key)
                                         
