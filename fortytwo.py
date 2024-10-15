@@ -481,7 +481,7 @@ try:
                                  
                                  nim_resp = ""
                                  response_display = st.empty()
-                                 response = nvidia_chain.invoke({"question": user_input,"chat_history": "chat_history"})
+                                 response = nvidia_chain.invoke({"question": user_input})
                                  for chunk in response:
                                       nim_resp+=chunk
                                       response_display.write(nim_resp)
