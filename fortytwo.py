@@ -470,8 +470,8 @@ try:
                                  
                                 nim_response = ""
                                 for chunk in llm2.stream(input=user_input):
-                                      st.write(chunk.content,end="")
                                       nim_response+=chunk.content
+                                      st.write(nim_response)
 
                                 #st.session_state["messages"].append({"role": "assistant", "content": nim_response})
 
