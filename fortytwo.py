@@ -472,7 +472,7 @@ try:
                                 response_display = st.empty()
                                 for resp in llm_chain.invoke(input=user_input):
                                 #last_response_content = resp['chat_history'][-1].split("content='")[1].split("'")[0]
-                                    st.write(resp)
+                                    st.write(resp['text'])
 
                                       #response_display.text(nim_response)
                                       
