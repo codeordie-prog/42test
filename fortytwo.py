@@ -466,13 +466,13 @@ try:
                             stream_handler = StreamHandler(st.empty())
                     
                             # Get response from LLM chain
-                            if api_provider=="NVIDIA":
+                            #if api_provider=="NVIDIA":
                                  
-                                nim_response = ""
-                                response_display = st.empty()
-                                for resp in llm_chain.stream(input=user_input):
-                                    nim_response+=resp['text']
-                                    response_display.text(nim_response)
+                                #nim_response = ""
+                                #response_display = st.empty()
+                                #for resp in llm_chain.stream(input=user_input):
+                                    #nim_response+=resp['text']
+                                    #response_display.text(nim_response)
                                     #st.write(resp["text"])
 
                                       #response_display.text(nim_response)
@@ -482,6 +482,14 @@ try:
 
                             
                             response = llm_chain.run({"question": user_input}, callbacks = [stream_handler])
+
+                            if api_provider == "NVIDIA":
+                                 nim_resp = ""
+                                 response_display = st.empty()
+                                 for chunk in response:
+                                      nim_resp+=chunk
+                                      response_display.text(nim_resp)
+                                      
 
 
                                 #image generation function calling
