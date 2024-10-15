@@ -21,6 +21,7 @@ from langchain_community.embeddings.huggingface import HuggingFaceEmbeddings
 from langchain_community.embeddings.openai import OpenAIEmbeddings
 from langchain_community.vectorstores.docarray import DocArrayInMemorySearch
 from langchain_community.vectorstores.chroma import Chroma
+from langchain.vectorstores.faiss import FAISS
 from langchain_core.prompts import ChatPromptTemplate,PromptTemplate,MessagesPlaceholder
 from langchain_core.messages import SystemMessage
 from langchain.memory.buffer import ConversationBufferMemory
