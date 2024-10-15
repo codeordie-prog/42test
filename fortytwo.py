@@ -438,17 +438,14 @@ try:
 
                                  # Initialize OpenAI LLM
 
-                                    llm2 = ChatOpenAI(openai_api_key=openai_api_key, model = llm_model_chat, streaming = True)
+                                llm2 = ChatOpenAI(openai_api_key=openai_api_key, model = llm_model_chat, streaming = True)
 
-                            else:
-
-                                if api_provider == "NVIDIA":
-
+                            elif api_provider == "NVIDIA":
                                     if not nvidia_api_key:
                                         st.info("add NVIDIA API")
                                         st.stop()
 
-                                        llm2 = ChatNVIDIA(model="meta/llama-3.1-405b-instruct")
+                                    llm2 = ChatNVIDIA(model="meta/llama-3.1-405b-instruct")
 
 
                             # Initialize Streamlit chat history
