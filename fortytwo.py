@@ -454,7 +454,8 @@ try:
                                 llm=llm2,
                                 verbose=False,
                                 memory=memory,
-                                prompt=system_prompt
+                                prompt=system_prompt,
+                                callbacks=[stream_handler]
                             )
 
                             
@@ -469,7 +470,7 @@ try:
 
     
 
-                            response = llm_chain.stream({"question": user_input}, callbacks = [stream_handler])
+                            response = llm_chain.run({"question": user_input}, callbacks = [stream_handler])
 
                             #resp2 = llm_chain.stream({"question": user_input}, callbacks = [stream_handler])
                             
