@@ -112,24 +112,34 @@ try:
     3. Next, enter an identifier name (optional) and click on the `Create secret key` button.""")
 
     
+    api_provider = st.sidebar.selectbox(label="choose api provider",
+                         options=["openAI","NVIDIA"])
     # Input for OpenAI API key in the sidebar
-    openai_api_key = st.sidebar.text_input("OpenAI API Key", type="password")
-    nvidia_api_key = st.sidebar.text_input("Nvidia API Key",type="password")
-    
-    if not openai_api_key and nvidia_api_key:
-           st.info("Please add your OpenAI and NVIDIA API keys to continue.")
+    if api_provider == "openAI":
+        openai_api_key = st.sidebar.text_input("OpenAI API Key", type="password")
+        if not openai_api_key:
+           st.info("Please add your OpenAI key to continue.")
            st.stop()
-
-   
-
+    else:
+        nvidia_api_key = st.sidebar.text_input("Nvidia API Key",type="password")
     
+        if not nvidia_api_key:
+            st.info("Please add your NVIDIA API key to continue.")
+            st.stop()
+
 
    #________________________________________radios_______________________________________________________________________
 
     with tab1:
          
-         llm_model_chat= st.selectbox(label="choose model",
-                                     options=["meta/llama-3.1-405b-instruct","gpt-4o","gpt-4o-mini","gpt-3.5-turbo"],key="chat_slider")
+         if api_provider == "openAI":
+         
+            llm_model_chat= st.selectbox(label="choose model",
+                                     options=["gpt-4o","gpt-4o-mini","gpt-3.5-turbo"],key="chat_slider")
+            
+         else:
+             llm_model_chat=st.selectbox(label="choose model",
+                                         options=["meta/llama-3.1-405b-instruct"])
 
     with tab2:
          repo_url=st.text_input(label="Enter repository url")
@@ -419,18 +429,27 @@ try:
                     try:
                         
                         if user_input!= None:
+
+                            if api_provider == "openAI":
                     
-                            if not openai_api_key and nvidia_api_key:
-                                st.info("Please add your OpenAI API key to continue.")
-                                st.stop()
+                                if not openai_api_key:
+                                    st.info("Please add your OpenAI API key to continue.")
+                                    st.stop()
 
-                            # Initialize OpenAI LLM
+                                 # Initialize OpenAI LLM
 
-                            if llm_model_chat == "llama-3.1-405b-instruct":
-                                llm2 = ChatNVIDIA(model="llama-3.1-405b-instruct",api_key=nvidia_api_key)
+                                    llm2 = ChatOpenAI(openai_api_key=openai_api_key, model = llm_model_chat, streaming = True)
+
                             else:
 
-                                llm2 = ChatOpenAI(openai_api_key=openai_api_key, model = llm_model_chat, streaming = True)
+                                if api_provider == "NVIDIA":
+
+                                    if not nvidia_api_key:
+                                        st.info("add NVIDIA API")
+                                        st.stop()
+
+                                        llm2 = ChatNVIDIA(model="meta/llama-3.1-405b-instruct")
+
 
                             # Initialize Streamlit chat history
                             chat_history = StreamlitChatMessageHistory(key="chat_history")
