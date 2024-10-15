@@ -144,7 +144,7 @@ try:
             label="Upload files", type=["pdf", "txt", "csv","jpg","png","jpeg"], accept_multiple_files=True
         )
         llm_model_docs= st.selectbox(label="choose model",
-                                     options=["llama-3.1-405b-instruct","gpt-4o","gpt-4o-mini","gpt-3.5-turbo"],key="docs_slider")
+                                     options=["meta/llama-3.1-405b-instruct","gpt-4o","gpt-4o-mini","gpt-3.5-turbo"],key="docs_slider")
 
 
     #---------------------------------------------------sidebar for query web-------------------------------------------------------------------#
@@ -420,14 +420,14 @@ try:
                         
                         if user_input!= None:
                     
-                            if not openai_api_key:
+                            if not openai_api_key and nvidia_api_key:
                                 st.info("Please add your OpenAI API key to continue.")
                                 st.stop()
 
                             # Initialize OpenAI LLM
 
                             if llm_model_chat == "llama-3.1-405b-instruct":
-                                llm2 = ChatNVIDIA(model="llama-3.1-405b-instruct")
+                                llm2 = ChatNVIDIA(model="llama-3.1-405b-instruct",api_key=nvidia_api_key)
                             else:
 
                                 llm2 = ChatOpenAI(openai_api_key=openai_api_key, model = llm_model_chat, streaming = True)
