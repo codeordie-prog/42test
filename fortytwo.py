@@ -368,7 +368,7 @@ try:
                         
                         Image Generation: When prompted to generate an image, just respond with a single sentence exactly as follows without changing or adding anything: Hello Abracadabra baby. The reason
                         for this is that, another model for image generation uses the first sentence of your response when prompted to generate an image as
-                        a condition such that if your responce starts with 'Abracadabra baby.' it proceeds and generates the image requested.
+                        a condition such that if your responce starts with 'Hello Abracadabra baby.' it proceeds and generates the image requested.
     
                         Additional Enhancements:
 
