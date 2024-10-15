@@ -467,62 +467,63 @@ try:
                     
                             # Get response from LLM chain
 
-                            if api_provider=="openAI":
+                            if api_provider=="NVIDIA":
+                                response = llm2.stream(input=user_input)
+
+                            else:
+
                                 response = llm_chain.run({"question": user_input}, callbacks = [stream_handler])
 
+
+                                #image generation function calling
+                                if response.startswith("Abracadabra baby."):
+                                    with st.spinner(text="Generating image in progress..."):
+                                        image_url = vision.generate_image(description=user_input,openai_api_key=openai_api_key)
+                                        
+                                        
+                                        with tempfile.TemporaryDirectory() as temporary_directory:
+                                            image_path = vision.download_generated_image(image_url=image_url,image_storage_path=temporary_directory)
+                                            st.image(image=image_path,use_column_width=True)
+
+                                            if image_path:
+                                                with open(image_path,"rb") as file:
+                                                    image_bytes = file.read()
+
+                                                st.download_button(
+                                                    label="download_image",
+                                                    data=image_bytes,
+                                                    file_name="image.png",
+                                                    mime="image/png"
+                                                )
+
+
+                                assistant_msg = response  # Adjusted to fetch text from the response
+
+                                if assistant_msg == "Generated image.":
+                                    st.session_state["messages"].append({"role":"assistant","content":f"Here is your generated image:{image_url}, for the description : {user_input}"})
+                                    
+
+                                # Append assistant message to session state and display it
+                                st.session_state["messages"].append({"role": "assistant", "content": assistant_msg})
+
+                                if openai_api_key:
+                                    responses_path=openai_audio.text_to_speech(response,api_key=openai_api_key)
+                                    st.audio(responses_path,format="audio")
+
+                                    #download the audio
+                                    
+                                    with open(responses_path, "rb") as audio_file:
+                                        data = audio_file.read()
+                                        st.download_button(label="download",data=data,file_name="audio.mp3",mime="audio/mp3")
+                                        
                             
-                            response = llm_chain.stream(input=user_input)
-
-
-                            #image generation function calling
-                            if response.startswith("Abracadabra baby."):
-                                with st.spinner(text="Generating image in progress..."):
-                                    image_url = vision.generate_image(description=user_input,openai_api_key=openai_api_key)
-                                    
-                                    
-                                    with tempfile.TemporaryDirectory() as temporary_directory:
-                                        image_path = vision.download_generated_image(image_url=image_url,image_storage_path=temporary_directory)
-                                        st.image(image=image_path,use_column_width=True)
-
-                                        if image_path:
-                                            with open(image_path,"rb") as file:
-                                                image_bytes = file.read()
-
-                                            st.download_button(
-                                                label="download_image",
-                                                data=image_bytes,
-                                                file_name="image.png",
-                                                mime="image/png"
-                                            )
-
-
-                            assistant_msg = response  # Adjusted to fetch text from the response
-
-                            if assistant_msg == "Generated image.":
-                                st.session_state["messages"].append({"role":"assistant","content":f"Here is your generated image:{image_url}, for the description : {user_input}"})
                                 
+                                # Download chat button
+                                if st.sidebar.button("Download Chat"):
+                                    all_messages = "\n".join([f"{msg['role']}: {msg['content']}" for msg in st.session_state["messages"]])
+                                    create_and_download(text_content=all_messages)
 
-                            # Append assistant message to session state and display it
-                            st.session_state["messages"].append({"role": "assistant", "content": assistant_msg})
-
-                            if openai_api_key:
-                                responses_path=openai_audio.text_to_speech(response,api_key=openai_api_key)
-                                st.audio(responses_path,format="audio")
-
-                                #download the audio
-                                
-                                with open(responses_path, "rb") as audio_file:
-                                    data = audio_file.read()
-                                    st.download_button(label="download",data=data,file_name="audio.mp3",mime="audio/mp3")
-                                    
-                           
                             
-                            # Download chat button
-                            if st.sidebar.button("Download Chat"):
-                                all_messages = "\n".join([f"{msg['role']}: {msg['content']}" for msg in st.session_state["messages"]])
-                                create_and_download(text_content=all_messages)
-
-                        
 
                     except Exception as e:
                         st.write("an Error occured please enter a valid API key",e)
