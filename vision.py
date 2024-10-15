@@ -126,34 +126,4 @@ def download_generated_image(image_url: str, image_storage_path:str):
         st.write("An error occured during image download",e)
     
     
-def stablediffusion_image(nvidia_api_key:str, description:str):
 
-    invoke_url = "https://ai.api.nvidia.com/v1/genai/nvidia/consistory"
-    headers = {
-        "Authorization": f"Bearer {nvidia_api_key}",
-        "Accept": "application/json",
-    }
-
-    payload = {
-        "mode": 'init',
-        "subject_prompt": description,
-        "subject_tokens": ["",""],
-        "subject_seed": 43,
-        "style_prompt": "A photo of",
-        "scene_prompt1": "photorealistic",
-        "scene_prompt2": "lively",
-        "negative_prompt": "",
-        "cfg_scale": 5,
-        "same_initial_noise": False
-    }
-
-    response = requests.post(invoke_url, headers=headers, json=payload)
-    response.raise_for_status()
-
-    data = response.json()
-
-    for idx, img_data in enumerate(data['artifacts']):
-        img_base64 = img_data["base64"]
-        img_bytes = base64.b64decode(img_base64)
-        
-    return img_bytes
