@@ -471,8 +471,8 @@ try:
                                 nim_response = ""
                                 response_display = st.empty()
                                 for chunk in llm_chain.stream(input=user_input):
-                                      nim_response+=chunk
-                                      response_display.text(nim_response)
+                                      st.write(chunk)
+                                      #response_display.text(nim_response)
                                       
 
                                 #st.session_state["messages"].append({"role": "assistant", "content": nim_response})
