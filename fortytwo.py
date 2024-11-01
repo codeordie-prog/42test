@@ -667,7 +667,9 @@ try:
                 audio_text = openai_audio.speech_to_text(audio_file=audio_input,api_key=openai_api_key)
                 user_input =  st.chat_input()
                 
-                user_input_with_chat_history = f"{user_input} : here is chat history of previous convo if needed: {data_history['messages']}"
+                if data_history:
+                    user_input_with_chat_history = f"{user_input} : here is chat history of previous convo if needed: {data_history['messages']}"
+
 
                 with input_placeholder.container():
                 
@@ -740,8 +742,10 @@ try:
                                 else:
                                     
                                     with st.spinner("`Thinking..`"):
-                                    
-                                        response = llm_chain.run({"question": user_input_with_chat_history}, callbacks = [stream_handler])
+                                        if data_history:
+                                            response = llm_chain.run({"question": user_input_with_chat_history}, callbacks = [stream_handler])
+                                        else:
+                                            response = llm_chain.run({"question": user_input}, callbacks = [stream_handler])
 
                             elif api_provider == "openai" and audio_text:
                                   
