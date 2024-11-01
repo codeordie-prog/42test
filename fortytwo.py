@@ -667,7 +667,7 @@ try:
                 audio_text = openai_audio.speech_to_text(audio_file=audio_input,api_key=openai_api_key)
                 user_input =  st.chat_input()
                 
-                user_input_with_chat_history = f"{user_input} : here is chat history of previous convo if needed: {data_history['chat_history']}"
+                user_input_with_chat_history = f"{user_input} : here is chat history of previous convo if needed: {data_history['messages']}"
 
                 with input_placeholder.container():
                 
